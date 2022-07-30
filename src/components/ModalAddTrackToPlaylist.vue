@@ -17,7 +17,7 @@
         class="playlist"
         @click="addTrackToPlaylist(playlist.id)"
       >
-        <img :src="playlist.coverImgUrl | resizeImage(224)" loading="lazy" />
+        <fv-image :src="playlist.coverImgUrl | resizeImage(224)" class="img" :onlazy="true" />
         <div class="info">
           <div class="title">{{ playlist.name }}</div>
           <div class="track-count">{{ playlist.trackCount }} 首</div>
@@ -141,7 +141,7 @@ export default {
   &:hover {
     background: var(--color-secondary-bg-for-transparent);
   }
-  img {
+  .img {
     border-radius: 8px;
     height: 42px;
     width: 42px;

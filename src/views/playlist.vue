@@ -14,6 +14,7 @@
         type="playlist"
         :cover-hover="false"
         :play-button-size="18"
+        style="flex: 0;"
         @click.right.native="openMenu"
       />
       <div class="info">
@@ -139,10 +140,10 @@
 
     <div v-if="isLikeSongsPage" class="user-info">
       <h1>
-        <img
+        <fv-image
           class="avatar"
           :src="data.user.avatarUrl | resizeImage"
-          loading="lazy"
+          :onlazy="true"
         />
         {{ data.user.nickname }}{{ $t('library.sLikedSongs') }}
       </h1>

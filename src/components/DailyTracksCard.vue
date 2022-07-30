@@ -1,6 +1,6 @@
 <template>
   <div class="daily-recommend-card" @click="goToDailyTracks">
-    <img :src="coverUrl" loading="lazy" />
+    <fv-image :src="coverUrl" class="img" :onlazy="true" />
     <div class="container">
       <div class="title-box">
         <div class="title">
@@ -87,7 +87,7 @@ export default {
   z-index: 1;
 }
 
-img {
+.img {
   position: absolute;
   top: 0;
   left: 0;

@@ -11,6 +11,7 @@
         type="album"
         :cover-hover="false"
         :play-button-size="18"
+        style="flex: 0;"
         @click.right.native="openMenu"
       />
       <div class="info">

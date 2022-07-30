@@ -2,9 +2,9 @@
   <div class="track-list">
     <ContextMenu ref="menu">
       <div v-show="type !== 'cloudDisk'" class="item-info">
-        <img
+        <fv-image
           :src="rightClickedTrackComputed.al.picUrl | resizeImage(224)"
-          loading="lazy"
+          :onlazy="true"
         />
         <div class="info">
           <div class="title">{{ rightClickedTrackComputed.name }}</div>

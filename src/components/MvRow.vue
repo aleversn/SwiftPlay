@@ -7,7 +7,7 @@
         @mouseleave="hoverVideoID = 0"
         @click="goToMv(getID(mv))"
       >
-        <img :src="getUrl(mv)" loading="lazy" />
+        <fv-image :src="getUrl(mv)" class="img" :onlazy="true" />
         <transition name="fade">
           <div
             v-show="hoverVideoID === getID(mv)"
@@ -149,7 +149,7 @@ export default {
     cursor: pointer;
   }
 }
-img {
+.img {
   border-radius: 0.75em;
   width: 100%;
   user-select: none;

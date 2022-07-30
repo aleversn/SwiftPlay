@@ -1,10 +1,10 @@
 <template>
   <div class="fm" :style="{ background }" data-theme="dark">
-    <img :src="nextTrackCover" style="display: none" loading="lazy" />
-    <img
+    <fv-image :src="nextTrackCover" style="display: none" :onlazy="true" />
+    <fv-image
       class="cover"
       :src="track.album && track.album.picUrl | resizeImage(512)"
-      loading="lazy"
+      :onlazy="true"
       @click="goToAlbum"
     />
     <div class="right-part">

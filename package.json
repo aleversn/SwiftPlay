@@ -64,6 +64,7 @@
     "register-service-worker": "^1.7.1",
     "svg-sprite-loader": "^6.0.11",
     "tunnel": "^0.0.6",
+    "vfluentdesign": "^0.3.3",
     "vscode-codicons": "^0.0.17",
     "vue": "^2.6.11",
     "vue-clipboard2": "^0.3.1",
@@ -100,22 +101,19 @@
   "eslintConfig": {
     "root": true,
     "env": {
-      "node": true,
-      "browser": true
+        "node": true
     },
     "extends": [
-      "plugin:vue/essential",
-      "plugin:vue/recommended",
-      "plugin:prettier/recommended",
-      "eslint:recommended"
+        "plugin:vue/essential",
+        "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+        "parser": "babel-eslint"
     },
-    "globals": {
-      "ipcRenderer": "off"
-    },
-    "rules": {}
+    "rules": {
+        "no-empty": "off",
+        "no-unused-vars": "warn"
+    }
   },
   "browserslist": [
     "> 1%",

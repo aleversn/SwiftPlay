@@ -12,6 +12,9 @@ import '@/assets/css/global.scss';
 import NProgress from 'nprogress';
 import '@/assets/css/nprogress.css';
 
+import VueFluent from "vfluentdesign";
+import "vfluentdesign/lib/index.css";
+
 window.resetApp = () => {
   localStorage.clear();
   indexedDB.deleteDatabase('yesplaymusic');
@@ -27,6 +30,8 @@ console.log(
   'background: #eaeffd;color:#335eea;padding: 4px 6px;border-radius:3px;',
   'background:unset;color:unset;'
 );
+
+Vue.use(VueFluent);
 
 Vue.use(
   VueGtag,
