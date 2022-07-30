@@ -15,24 +15,29 @@
                 <router-link
                     to="/"
                     :class="{ active: $route.name === 'home' }"
-                >{{
-          $t('nav.home')
-        }}</router-link>
+                    >{{ $t("nav.home") }}</router-link
+                >
                 <router-link
                     to="/explore"
                     :class="{ active: $route.name === 'explore' }"
-                >{{ $t('nav.explore') }}</router-link>
+                    >{{ $t("nav.explore") }}</router-link
+                >
                 <router-link
                     to="/library"
                     :class="{ active: $route.name === 'library' }"
-                >{{ $t('nav.library') }}</router-link>
+                    >{{ $t("nav.library") }}</router-link
+                >
             </div>
             <div class="right-part">
                 <fv-text-box
                     :theme="theme"
                     v-model="keywords"
                     :placeholder="inputFocus ? '' : $t('nav.search')"
-                    :background="theme === 'dark' ? 'rgba(35, 35, 35, 1)' : 'rgba(255, 255, 255, 1)'"
+                    :background="
+                        theme === 'dark'
+                            ? 'rgba(35, 35, 35, 1)'
+                            : 'rgba(255, 255, 255, 1)'
+                    "
                     icon="Search"
                     ref="searchInput"
                     :reveal-border="true"
@@ -42,12 +47,12 @@
                     @keydown.enter="doSearch"
                     @focus="inputFocus = true"
                     @blur="inputFocus = false"
-                    style="width: 200px;"
+                    style="width: 200px"
                 ></fv-text-box>
                 <fv-image
                     class="avatar"
                     :src="avatarUrl"
-                    style="width: 32px; height: 32px;"
+                    style="width: 32px; height: 32px"
                     @click.native="showUserProfileMenu"
                     loading="lazy"
                 />
@@ -55,36 +60,22 @@
         </nav>
 
         <ContextMenu ref="userProfileMenu">
-            <div
-                class="item"
-                @click="toSettings"
-            >
+            <div class="item" @click="toSettings">
                 <svg-icon icon-class="settings" />
-                {{ $t('library.userProfileMenu.settings') }}
+                {{ $t("library.userProfileMenu.settings") }}
             </div>
-            <div
-                v-if="!isLooseLoggedIn"
-                class="item"
-                @click="toLogin"
-            >
+            <div v-if="!isLooseLoggedIn" class="item" @click="toLogin">
                 <svg-icon icon-class="login" />
-                {{ $t('login.login') }}
+                {{ $t("login.login") }}
             </div>
-            <div
-                v-if="isLooseLoggedIn"
-                class="item"
-                @click="logout"
-            >
+            <div v-if="isLooseLoggedIn" class="item" @click="logout">
                 <svg-icon icon-class="logout" />
-                {{ $t('library.userProfileMenu.logout') }}
+                {{ $t("library.userProfileMenu.logout") }}
             </div>
             <hr />
-            <div
-                class="item"
-                @click="toGitHub"
-            >
+            <div class="item" @click="toGitHub">
                 <svg-icon icon-class="github" />
-                {{ $t('nav.github') }}
+                {{ $t("nav.github") }}
             </div>
         </ContextMenu>
     </div>
@@ -137,7 +128,7 @@ export default {
             let theme = this.settings.appearance;
             if (theme !== "auto") return theme;
             return document.body.getAttribute("data-theme");
-        }
+        },
     },
     created() {
         if (process.platform === "win32") {

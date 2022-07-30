@@ -1,5 +1,5 @@
-import request from '@/utils/request';
-import { mapTrackPlayableStatus } from '@/utils/common';
+import request from "@/utils/request";
+import { mapTrackPlayableStatus } from "@/utils/common";
 
 /**
  * 搜索
@@ -17,34 +17,36 @@ import { mapTrackPlayableStatus } from '@/utils/common';
  * @param {number=} params.type
  */
 export function search(params) {
-  return request({
-    url: '/search',
-    method: 'get',
-    params,
-  }).then(data => {
-    if (data.result?.song !== undefined)
-      data.result.song.songs = mapTrackPlayableStatus(data.result.song.songs);
-    return data;
-  });
+    return request({
+        url: "/search",
+        method: "get",
+        params,
+    }).then(data => {
+        if (data.result?.song !== undefined)
+            data.result.song.songs = mapTrackPlayableStatus(
+                data.result.song.songs
+            );
+        return data;
+    });
 }
 
 export function personalFM() {
-  return request({
-    url: '/personal_fm',
-    method: 'get',
-    params: {
-      timestamp: new Date().getTime(),
-    },
-  });
+    return request({
+        url: "/personal_fm",
+        method: "get",
+        params: {
+            timestamp: new Date().getTime(),
+        },
+    });
 }
 
 export function fmTrash(id) {
-  return request({
-    url: '/fm_trash',
-    method: 'post',
-    params: {
-      timestamp: new Date().getTime(),
-      id,
-    },
-  });
+    return request({
+        url: "/fm_trash",
+        method: "post",
+        params: {
+            timestamp: new Date().getTime(),
+            id,
+        },
+    });
 }

@@ -1,12 +1,12 @@
-import store from '@/store';
-import request from '@/utils/request';
-import { mapTrackPlayableStatus } from '@/utils/common';
+import store from "@/store";
+import request from "@/utils/request";
+import { mapTrackPlayableStatus } from "@/utils/common";
 import {
-  cacheTrackDetail,
-  getTrackDetailFromCache,
-  cacheLyric,
-  getLyricFromCache,
-} from '@/utils/db';
+    cacheTrackDetail,
+    getTrackDetailFromCache,
+    cacheLyric,
+    getLyricFromCache,
+} from "@/utils/db";
 
 /**
  * 获取音乐 url
@@ -15,20 +15,20 @@ import {
  * @param {string} id - 音乐的 id，例如 id=405998841,33894312
  */
 export function getMP3(id) {
-  const getBr = () => {
-    // 当返回的 quality >= 400000时，就会优先返回 hi-res
-    const quality = store.state.settings?.musicQuality ?? '320000';
-    return quality === 'flac' ? '350000' : quality;
-  };
+    const getBr = () => {
+        // 当返回的 quality >= 400000时，就会优先返回 hi-res
+        const quality = store.state.settings?.musicQuality ?? "320000";
+        return quality === "flac" ? "350000" : quality;
+    };
 
-  return request({
-    url: '/song/url',
-    method: 'get',
-    params: {
-      id,
-      br: getBr(),
-    },
-  });
+    return request({
+        url: "/song/url",
+        method: "get",
+        params: {
+            id,
+            br: getBr(),
+        },
+    });
 }
 
 /**
@@ -37,35 +37,38 @@ export function getMP3(id) {
  * @param {string} ids - 音乐 id, 例如 ids=405998841,33894312
  */
 export function getTrackDetail(ids) {
-  const fetchLatest = () => {
-    return request({
-      url: '/song/detail',
-      method: 'get',
-      params: {
-        ids,
-      },
-    }).then(data => {
-      data.songs.map(song => {
-        const privileges = data.privileges.find(t => t.id === song.id);
-        cacheTrackDetail(song, privileges);
-      });
-      data.songs = mapTrackPlayableStatus(data.songs, data.privileges);
-      return data;
-    });
-  };
-  fetchLatest();
+    const fetchLatest = () => {
+        return request({
+            url: "/song/detail",
+            method: "get",
+            params: {
+                ids,
+            },
+        }).then(data => {
+            data.songs.map(song => {
+                const privileges = data.privileges.find(t => t.id === song.id);
+                cacheTrackDetail(song, privileges);
+            });
+            data.songs = mapTrackPlayableStatus(data.songs, data.privileges);
+            return data;
+        });
+    };
+    fetchLatest();
 
-  let idsInArray = [String(ids)];
-  if (typeof ids === 'string') {
-    idsInArray = ids.split(',');
-  }
-
-  return getTrackDetailFromCache(idsInArray).then(result => {
-    if (result) {
-      result.songs = mapTrackPlayableStatus(result.songs, result.privileges);
+    let idsInArray = [String(ids)];
+    if (typeof ids === "string") {
+        idsInArray = ids.split(",");
     }
-    return result ?? fetchLatest();
-  });
+
+    return getTrackDetailFromCache(idsInArray).then(result => {
+        if (result) {
+            result.songs = mapTrackPlayableStatus(
+                result.songs,
+                result.privileges
+            );
+        }
+        return result ?? fetchLatest();
+    });
 }
 
 /**
@@ -74,24 +77,24 @@ export function getTrackDetail(ids) {
  * @param {number} id - 音乐 id
  */
 export function getLyric(id) {
-  const fetchLatest = () => {
-    return request({
-      url: '/lyric',
-      method: 'get',
-      params: {
-        id,
-      },
-    }).then(result => {
-      cacheLyric(id, result);
-      return result;
+    const fetchLatest = () => {
+        return request({
+            url: "/lyric",
+            method: "get",
+            params: {
+                id,
+            },
+        }).then(result => {
+            cacheLyric(id, result);
+            return result;
+        });
+    };
+
+    fetchLatest();
+
+    return getLyricFromCache(id).then(result => {
+        return result ?? fetchLatest();
     });
-  };
-
-  fetchLatest();
-
-  return getLyricFromCache(id).then(result => {
-    return result ?? fetchLatest();
-  });
 }
 
 /**
@@ -100,13 +103,13 @@ export function getLyric(id) {
  * @param {number} type - 地区类型 id, 对应以下: 全部:0 华语:7 欧美:96 日本:8 韩国:16
  */
 export function topSong(type) {
-  return request({
-    url: '/top/song',
-    method: 'get',
-    params: {
-      type,
-    },
-  });
+    return request({
+        url: "/top/song",
+        method: "get",
+        params: {
+            type,
+        },
+    });
 }
 
 /**
@@ -119,12 +122,12 @@ export function topSong(type) {
  * @param {boolean=} [params.like]
  */
 export function likeATrack(params) {
-  params.timestamp = new Date().getTime();
-  return request({
-    url: '/like',
-    method: 'get',
-    params,
-  });
+    params.timestamp = new Date().getTime();
+    return request({
+        url: "/like",
+        method: "get",
+        params,
+    });
 }
 
 /**
@@ -139,10 +142,10 @@ export function likeATrack(params) {
  * @param {number=} params.time
  */
 export function scrobble(params) {
-  params.timestamp = new Date().getTime();
-  return request({
-    url: '/scrobble',
-    method: 'get',
-    params,
-  });
+    params.timestamp = new Date().getTime();
+    return request({
+        url: "/scrobble",
+        method: "get",
+        params,
+    });
 }

@@ -1,5 +1,5 @@
-import request from '@/utils/request';
-import { mapTrackPlayableStatus } from '@/utils/common';
+import request from "@/utils/request";
+import { mapTrackPlayableStatus } from "@/utils/common";
 
 /**
  * 推荐歌单
@@ -10,11 +10,11 @@ import { mapTrackPlayableStatus } from '@/utils/common';
  * @param {number=} params.limit
  */
 export function recommendPlaylist(params) {
-  return request({
-    url: '/personalized',
-    method: 'get',
-    params,
-  });
+    return request({
+        url: "/personalized",
+        method: "get",
+        params,
+    });
 }
 /**
  * 获取每日推荐歌单
@@ -23,14 +23,14 @@ export function recommendPlaylist(params) {
  * @param {number=} params.limit
  */
 export function dailyRecommendPlaylist(params) {
-  return request({
-    url: '/recommend/resource',
-    method: 'get',
-    params: {
-      params,
-      timestamp: Date.now(),
-    },
-  });
+    return request({
+        url: "/recommend/resource",
+        method: "get",
+        params: {
+            params,
+            timestamp: Date.now(),
+        },
+    });
 }
 /**
  * 获取歌单详情
@@ -43,21 +43,21 @@ export function dailyRecommendPlaylist(params) {
  * @param {boolean=} noCache
  */
 export function getPlaylistDetail(id, noCache = false) {
-  let params = { id };
-  if (noCache) params.timestamp = new Date().getTime();
-  return request({
-    url: '/playlist/detail',
-    method: 'get',
-    params,
-  }).then(data => {
-    if (data.playlist) {
-      data.playlist.tracks = mapTrackPlayableStatus(
-        data.playlist.tracks,
-        data.privileges || []
-      );
-    }
-    return data;
-  });
+    let params = { id };
+    if (noCache) params.timestamp = new Date().getTime();
+    return request({
+        url: "/playlist/detail",
+        method: "get",
+        params,
+    }).then(data => {
+        if (data.playlist) {
+            data.playlist.tracks = mapTrackPlayableStatus(
+                data.playlist.tracks,
+                data.privileges || []
+            );
+        }
+        return data;
+    });
 }
 /**
  * 获取精品歌单
@@ -71,11 +71,11 @@ export function getPlaylistDetail(id, noCache = false) {
  * @param {number} params.before
  */
 export function highQualityPlaylist(params) {
-  return request({
-    url: '/top/playlist/highquality',
-    method: 'get',
-    params,
-  });
+    return request({
+        url: "/top/playlist/highquality",
+        method: "get",
+        params,
+    });
 }
 
 /**
@@ -90,11 +90,11 @@ export function highQualityPlaylist(params) {
  * @param {number=} params.limit
  */
 export function topPlaylist(params) {
-  return request({
-    url: '/top/playlist',
-    method: 'get',
-    params,
-  });
+    return request({
+        url: "/top/playlist",
+        method: "get",
+        params,
+    });
 }
 
 /**
@@ -102,10 +102,10 @@ export function topPlaylist(params) {
  * 说明 : 调用此接口,可获取歌单分类,包含 category 信息
  */
 export function playlistCatlist() {
-  return request({
-    url: '/playlist/catlist',
-    method: 'get',
-  });
+    return request({
+        url: "/playlist/catlist",
+        method: "get",
+    });
 }
 
 /**
@@ -113,10 +113,10 @@ export function playlistCatlist() {
  * 说明 : 调用此接口,可获取所有榜单 接口地址 : /toplist
  */
 export function toplists() {
-  return request({
-    url: '/toplist',
-    method: 'get',
-  });
+    return request({
+        url: "/toplist",
+        method: "get",
+    });
 }
 
 /**
@@ -129,12 +129,12 @@ export function toplists() {
  * @param {number} params.id
  */
 export function subscribePlaylist(params) {
-  params.timestamp = new Date().getTime();
-  return request({
-    url: '/playlist/subscribe',
-    method: 'post',
-    params,
-  });
+    params.timestamp = new Date().getTime();
+    return request({
+        url: "/playlist/subscribe",
+        method: "post",
+        params,
+    });
 }
 
 /**
@@ -144,11 +144,11 @@ export function subscribePlaylist(params) {
  *  * @param {number} id
  */
 export function deletePlaylist(id) {
-  return request({
-    url: '/playlist/delete',
-    method: 'post',
-    params: { id },
-  });
+    return request({
+        url: "/playlist/delete",
+        method: "post",
+        params: { id },
+    });
 }
 
 /**
@@ -163,12 +163,12 @@ export function deletePlaylist(id) {
  * @param {string} params.type
  */
 export function createPlaylist(params) {
-  params.timestamp = new Date().getTime();
-  return request({
-    url: '/playlist/create',
-    method: 'post',
-    params,
-  });
+    params.timestamp = new Date().getTime();
+    return request({
+        url: "/playlist/create",
+        method: "post",
+        params,
+    });
 }
 
 /**
@@ -181,12 +181,12 @@ export function createPlaylist(params) {
  * @param {string} params.pid
  */
 export function addOrRemoveTrackFromPlaylist(params) {
-  params.timestamp = new Date().getTime();
-  return request({
-    url: '/playlist/tracks',
-    method: 'post',
-    params,
-  });
+    params.timestamp = new Date().getTime();
+    return request({
+        url: "/playlist/tracks",
+        method: "post",
+        params,
+    });
 }
 
 /**
@@ -197,17 +197,17 @@ export function addOrRemoveTrackFromPlaylist(params) {
  * @param {string} params.pid
  */
 export function dailyRecommendTracks() {
-  return request({
-    url: '/recommend/songs',
-    method: 'get',
-    params: { timestamp: new Date().getTime() },
-  }).then(result => {
-    result.data.dailySongs = mapTrackPlayableStatus(
-      result.data.dailySongs,
-      result.data.privileges
-    );
-    return result;
-  });
+    return request({
+        url: "/recommend/songs",
+        method: "get",
+        params: { timestamp: new Date().getTime() },
+    }).then(result => {
+        result.data.dailySongs = mapTrackPlayableStatus(
+            result.data.dailySongs,
+            result.data.privileges
+        );
+        return result;
+    });
 }
 
 /**
@@ -221,9 +221,9 @@ export function dailyRecommendTracks() {
  * @param {number=} params.pid
  */
 export function intelligencePlaylist(params) {
-  return request({
-    url: '/playmode/intelligence/list',
-    method: 'get',
-    params,
-  });
+    return request({
+        url: "/playmode/intelligence/list",
+        method: "get",
+        params,
+    });
 }

@@ -15,20 +15,16 @@
             :class="{ hover: focus }"
             @click="goToAlbum"
         />
-        <div
-            v-if="showOrderNumber"
-            class="no"
-        >
-            <button
-                v-show="focus && playable && !isPlaying"
-                @click="playTrack"
-            >
+        <div v-if="showOrderNumber" class="no">
+            <button v-show="focus && playable && !isPlaying" @click="playTrack">
                 <svg-icon
                     icon-class="play"
                     style="height: 14px; width: 14px"
                 ></svg-icon>
             </button>
-            <span v-show="(!focus || !playable) && !isPlaying">{{ track.no }}</span>
+            <span v-show="(!focus || !playable) && !isPlaying">{{
+                track.no
+            }}</span>
             <button v-show="isPlaying">
                 <svg-icon
                     icon-class="volume"
@@ -40,17 +36,10 @@
             <div class="container">
                 <div class="title">
                     {{ track.name }}
-                    <span
-                        v-if="isSubTitle"
-                        :title="subTitle"
-                        class="sub-title"
-                    >
+                    <span v-if="isSubTitle" :title="subTitle" class="sub-title">
                         ({{ subTitle }})
                     </span>
-                    <span
-                        v-if="isAlbum"
-                        class="featured"
-                    >
+                    <span v-if="isAlbum" class="featured">
                         <ArtistsInLine
                             :artists="track.ar"
                             :exclude="$parent.albumObject.artist.name"
@@ -64,10 +53,7 @@
                         <ExplicitSymbol />
                     </span>
                 </div>
-                <div
-                    v-if="!isAlbum"
-                    class="artist"
-                >
+                <div v-if="!isAlbum" class="artist">
                     <span
                         v-if="track.mark === 1318912"
                         class="explicit-symbol before-artist"
@@ -80,47 +66,29 @@
             <div></div>
         </div>
 
-        <div
-            v-if="showAlbumName"
-            class="album"
-        >
-            <router-link
-                v-if="album && album.id"
-                :to="`/album/${album.id}`"
-            >{{
-        album.name
-      }}</router-link>
+        <div v-if="showAlbumName" class="album">
+            <router-link v-if="album && album.id" :to="`/album/${album.id}`">{{
+                album.name
+            }}</router-link>
             <div></div>
         </div>
 
-        <div
-            v-if="showLikeButton"
-            class="actions"
-        >
+        <div v-if="showLikeButton" class="actions">
             <button @click="likeThisSong">
                 <svg-icon
                     icon-class="heart"
                     :style="{
-            visibility: focus && !isLiked ? 'visible' : 'hidden',
-          }"
+                        visibility: focus && !isLiked ? 'visible' : 'hidden',
+                    }"
                 ></svg-icon>
-                <svg-icon
-                    v-show="isLiked"
-                    icon-class="heart-solid"
-                ></svg-icon>
+                <svg-icon v-show="isLiked" icon-class="heart-solid"></svg-icon>
             </button>
         </div>
-        <div
-            v-if="showTrackTime"
-            class="time"
-        >
+        <div v-if="showTrackTime" class="time">
             {{ track.dt | formatTime }}
         </div>
 
-        <div
-            v-if="track.playCount"
-            class="count"
-        > {{ track.playCount }}</div>
+        <div v-if="track.playCount" class="count"> {{ track.playCount }}</div>
     </div>
 </template>
 

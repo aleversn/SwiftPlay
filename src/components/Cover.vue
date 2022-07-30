@@ -20,13 +20,14 @@
             <fv-image
                 :src="imageUrl"
                 :onlazy="true"
-                style="width: 100%; height: 100%; border-radius: 6px;"
-                :style="fixedSize === 0 ? {} : {width: `${fixedSize}px`, height: `${fixedSize}px`}"
+                style="width: 100%; height: 100%; border-radius: 6px"
+                :style="
+                    fixedSize === 0
+                        ? {}
+                        : { width: `${fixedSize}px`, height: `${fixedSize}px` }
+                "
             />
-            <transition
-                v-if="coverHover || alwaysShowShadow"
-                name="fade"
-            >
+            <transition v-if="coverHover || alwaysShowShadow" name="fade">
                 <div
                     v-show="focus || alwaysShowShadow"
                     class="shadow"

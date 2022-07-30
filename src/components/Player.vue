@@ -1,14 +1,11 @@
 <template>
-    <div
-        class="player"
-        @click="toggleLyrics"
-    >
+    <div class="player" @click="toggleLyrics">
         <div
             class="progress-bar"
             :class="{
-        nyancat: settings.nyancatStyle,
-        'nyancat-stop': settings.nyancatStyle && !player.playing,
-      }"
+                nyancat: settings.nyancatStyle,
+                'nyancat-stop': settings.nyancatStyle && !player.playing,
+            }"
             @click.stop
         >
             <vue-slider
@@ -29,16 +26,15 @@
             <div class="playing">
                 <div class="container">
                     <fv-image
-                        :src="currentTrack.al && currentTrack.al.picUrl | resizeImage(224)"
+                        :src="
+                            currentTrack.al &&
+                            currentTrack.al.picUrl | resizeImage(224)
+                        "
                         class="img"
                         :onlazy="true"
                         @click="goToAlbum"
                     />
-                    <div
-                        class="track-info"
-                        :title="audioSource"
-                        @click.stop
-                    >
+                    <div class="track-info" :title="audioSource" @click.stop>
                         <div
                             :class="['name', { 'has-list': hasList() }]"
                             @click="hasList() && goToList()"
@@ -51,7 +47,12 @@
                                 :key="ar.id"
                                 @click="ar.id && goToArtist(ar.id)"
                             >
-                                <span :class="{ ar: ar.id }"> {{ ar.name }} </span><span v-if="index !== currentTrack.ar.length - 1">, </span>
+                                <span :class="{ ar: ar.id }">
+                                    {{ ar.name }} </span
+                                ><span
+                                    v-if="index !== currentTrack.ar.length - 1"
+                                    >,
+                                </span>
                             </span>
                         </div>
                     </div>
@@ -75,17 +76,18 @@
             </div>
             <div class="middle-control-buttons">
                 <div class="blank"></div>
-                <div
-                    class="container"
-                    @click.stop
-                >
+                <div class="container" @click.stop>
                     <fv-button
                         v-show="!player.isPersonalFM"
                         :theme="theme"
-                        :background="theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                        :background="
+                            theme === 'dark'
+                                ? 'rgba(35, 35, 35, 0.3)'
+                                : 'rgba(255, 255, 255, 0.3)'
+                        "
                         :border-radius="50"
                         :title="$t('player.previous')"
-                        style="width: 30px; height: 30px; margin: 10px;"
+                        style="width: 30px; height: 30px; margin: 10px"
                         @click.native="playPrevTrack"
                     >
                         <fv-AnimatedIcon
@@ -105,9 +107,15 @@
                     <fv-button
                         class="play"
                         :theme="theme"
-                        :background="theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                        :background="
+                            theme === 'dark'
+                                ? 'rgba(35, 35, 35, 0.3)'
+                                : 'rgba(255, 255, 255, 0.3)'
+                        "
                         :border-radius="50"
-                        :title="$t(player.playing ? 'player.pause' : 'player.play')"
+                        :title="
+                            $t(player.playing ? 'player.pause' : 'player.play')
+                        "
                         @click="playOrPause"
                     >
                         <fv-AnimatedIcon
@@ -119,10 +127,14 @@
                     </fv-button>
                     <fv-button
                         :theme="theme"
-                        :background="theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                        :background="
+                            theme === 'dark'
+                                ? 'rgba(35, 35, 35, 0.3)'
+                                : 'rgba(255, 255, 255, 0.3)'
+                        "
                         :border-radius="50"
                         :title="$t('player.next')"
-                        style="width: 30px; height: 30px; margin: 10px;"
+                        style="width: 30px; height: 30px; margin: 10px"
                         @click.native="playNextTrack"
                     >
                         <fv-AnimatedIcon
@@ -137,17 +149,18 @@
             </div>
             <div class="right-control-buttons">
                 <div class="blank"></div>
-                <div
-                    class="container"
-                    @click.stop
-                >
+                <div class="container" @click.stop>
                     <fv-button
                         :theme="theme"
-                        :background="theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                        :background="
+                            theme === 'dark'
+                                ? 'rgba(35, 35, 35, 0.3)'
+                                : 'rgba(255, 255, 255, 0.3)'
+                        "
                         :border-radius="50"
                         :title="$t('player.nextUp')"
                         :disabled="player.isPersonalFM"
-                        style="width: 30px; height: 30px; margin: 5px;"
+                        style="width: 30px; height: 30px; margin: 5px"
                         @click.native="goToNextTracksPage"
                     >
                         <fv-AnimatedIcon
@@ -159,15 +172,21 @@
                     </fv-button>
                     <fv-button
                         :theme="player.repeatMode === 'on' ? 'dark' : theme"
-                        :background="player.repeatMode === 'on' ? 'rgba(0, 98, 158, 0.3)' : theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                        :background="
+                            player.repeatMode === 'on'
+                                ? 'rgba(0, 98, 158, 0.3)'
+                                : theme === 'dark'
+                                ? 'rgba(35, 35, 35, 0.3)'
+                                : 'rgba(255, 255, 255, 0.3)'
+                        "
                         :border-radius="50"
                         :title="
                             player.repeatMode === 'one'
                                 ? $t('player.repeatTrack')
                                 : $t('player.repeat')
-                            "
+                        "
                         :disabled="player.isPersonalFM"
-                        style="width: 30px; height: 30px; margin: 5px;"
+                        style="width: 30px; height: 30px; margin: 5px"
                         @click.native="switchRepeatMode"
                     >
                         <fv-AnimatedIcon
@@ -187,11 +206,17 @@
                     </fv-button>
                     <fv-button
                         :theme="player.shuffle ? 'dark' : theme"
-                        :background="player.shuffle ? 'rgba(0, 98, 158, 0.3)' : theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                        :background="
+                            player.shuffle
+                                ? 'rgba(0, 98, 158, 0.3)'
+                                : theme === 'dark'
+                                ? 'rgba(35, 35, 35, 0.3)'
+                                : 'rgba(255, 255, 255, 0.3)'
+                        "
                         :border-radius="50"
                         :title="$t('player.shuffle')"
                         :disabled="player.isPersonalFM"
-                        style="width: 30px; height: 30px; margin: 5px;"
+                        style="width: 30px; height: 30px; margin: 5px"
                         @click.native="switchShuffle"
                     >
                         <fv-AnimatedIcon
@@ -203,7 +228,10 @@
                     </fv-button>
                     <button-icon
                         v-if="settings.enableReversedMode"
-                        :class="{ active: player.reversed, disabled: player.isPersonalFM }"
+                        :class="{
+                            active: player.reversed,
+                            disabled: player.isPersonalFM,
+                        }"
                         :title="$t('player.reversed')"
                         @click.native="switchReversed"
                     >
@@ -421,8 +449,7 @@ export default {
         background: rgba(120, 120, 120, 0.1);
     }
 
-    &:active
-    {
+    &:active {
         background: rgba(120, 120, 120, 0.2);
     }
 

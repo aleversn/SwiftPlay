@@ -1,6 +1,6 @@
-import request from '@/utils/request';
-import { mapTrackPlayableStatus } from '@/utils/common';
-import { cacheAlbum, getAlbumFromCache } from '@/utils/db';
+import request from "@/utils/request";
+import { mapTrackPlayableStatus } from "@/utils/common";
+import { cacheAlbum, getAlbumFromCache } from "@/utils/db";
 
 /**
  * 获取专辑内容
@@ -8,24 +8,24 @@ import { cacheAlbum, getAlbumFromCache } from '@/utils/db';
  * @param {number} id
  */
 export function getAlbum(id) {
-  const fetchLatest = () => {
-    return request({
-      url: '/album',
-      method: 'get',
-      params: {
-        id,
-      },
-    }).then(data => {
-      cacheAlbum(id, data);
-      data.songs = mapTrackPlayableStatus(data.songs);
-      return data;
-    });
-  };
-  fetchLatest();
+    const fetchLatest = () => {
+        return request({
+            url: "/album",
+            method: "get",
+            params: {
+                id,
+            },
+        }).then(data => {
+            cacheAlbum(id, data);
+            data.songs = mapTrackPlayableStatus(data.songs);
+            return data;
+        });
+    };
+    fetchLatest();
 
-  return getAlbumFromCache(id).then(result => {
-    return result ?? fetchLatest();
-  });
+    return getAlbumFromCache(id).then(result => {
+        return result ?? fetchLatest();
+    });
 }
 
 /**
@@ -40,11 +40,11 @@ export function getAlbum(id) {
  * @param {string} params.area
  */
 export function newAlbums(params) {
-  return request({
-    url: '/album/new',
-    method: 'get',
-    params,
-  });
+    return request({
+        url: "/album/new",
+        method: "get",
+        params,
+    });
 }
 
 /**
@@ -54,11 +54,11 @@ export function newAlbums(params) {
  * @param {number} id
  */
 export function albumDynamicDetail(id) {
-  return request({
-    url: '/album/detail/dynamic',
-    method: 'get',
-    params: { id, timestamp: new Date().getTime() },
-  });
+    return request({
+        url: "/album/detail/dynamic",
+        method: "get",
+        params: { id, timestamp: new Date().getTime() },
+    });
 }
 
 /**
@@ -71,9 +71,9 @@ export function albumDynamicDetail(id) {
  * @param {number} params.t
  */
 export function likeAAlbum(params) {
-  return request({
-    url: '/album/sub',
-    method: 'post',
-    params,
-  });
+    return request({
+        url: "/album/sub",
+        method: "post",
+        params,
+    });
 }

@@ -12,19 +12,19 @@
  * @see {@link https://github.com/electron/electron/issues/19977} for upstream electron issue
  */
 const nativeAlert = (() => {
-  if (process.env.IS_ELECTRON === true) {
-    const { dialog } = require('electron');
-    if (dialog) {
-      return message => {
-        var options = {
-          type: 'warning',
-          message,
-        };
-        dialog.showMessageBoxSync(null, options);
-      };
+    if (process.env.IS_ELECTRON === true) {
+        const { dialog } = require("electron");
+        if (dialog) {
+            return message => {
+                var options = {
+                    type: "warning",
+                    message,
+                };
+                dialog.showMessageBoxSync(null, options);
+            };
+        }
     }
-  }
-  return alert;
+    return alert;
 })();
 
 export default nativeAlert;

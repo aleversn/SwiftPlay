@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="cover-row"
-        :style="rowStyles"
-    >
+    <div class="cover-row" :style="rowStyles">
         <div
             v-for="item in items"
             :key="item.id"
@@ -16,33 +13,23 @@
                 :play-button-size="type === 'artist' ? 26 : playButtonSize"
             />
             <div class="text">
-                <div
-                    v-if="showPlayCount"
-                    class="info"
-                >
+                <div v-if="showPlayCount" class="info">
                     <span class="play-count">
                         <svg-icon icon-class="play" />{{
-              item.playCount | formatPlayCount
-            }}
+                            item.playCount | formatPlayCount
+                        }}
                     </span>
                 </div>
-                <div
-                    class="title"
-                    :style="{ fontSize: subTextFontSize }"
-                >
-                    <span
-                        v-if="isExplicit(item)"
-                        class="explicit-symbol"
-                    >
+                <div class="title" :style="{ fontSize: subTextFontSize }">
+                    <span v-if="isExplicit(item)" class="explicit-symbol">
                         <ExplicitSymbol />
                     </span>
-                    <span
-                        v-if="isPrivacy(item)"
-                        class="lock-icon"
-                    >
+                    <span v-if="isPrivacy(item)" class="lock-icon">
                         <svg-icon icon-class="lock" />
                     </span>
-                    <router-link :to="getTitleLink(item)">{{ item.name }}</router-link>
+                    <router-link :to="getTitleLink(item)">{{
+                        item.name
+                    }}</router-link>
                 </div>
                 <div
                     v-if="type !== 'artist' && subText !== 'none'"

@@ -7,12 +7,13 @@
         >
             <div
                 v-if="
-                (settings.lyricsBackground === 'blur') |
-                    (settings.lyricsBackground === 'dynamic')
+                    (settings.lyricsBackground === 'blur') |
+                        (settings.lyricsBackground === 'dynamic')
                 "
                 class="lyrics-background"
                 :class="{
-                'dynamic-background': settings.lyricsBackground === 'dynamic',
+                    'dynamic-background':
+                        settings.lyricsBackground === 'dynamic',
                 }"
             >
                 <div
@@ -32,10 +33,7 @@
 
             <div class="left-side">
                 <div>
-                    <div
-                        v-if="settings.showLyricsTime"
-                        class="date"
-                    >
+                    <div v-if="settings.showLyricsTime" class="date">
                         {{ date }}
                     </div>
                     <div class="cover">
@@ -54,15 +52,12 @@
                     <div class="controls">
                         <div class="top-part">
                             <div class="track-info">
-                                <div
-                                    class="title"
-                                    :title="currentTrack.name"
-                                >
+                                <div class="title" :title="currentTrack.name">
                                     <router-link
                                         v-if="hasList()"
                                         :to="`${getListPath()}`"
                                         @click.native="toggleLyrics"
-                                    >{{ currentTrack.name }}
+                                        >{{ currentTrack.name }}
                                     </router-link>
                                     <span v-else>
                                         {{ currentTrack.name }}
@@ -73,7 +68,7 @@
                                         v-if="artist.id !== 0"
                                         :to="`/artist/${artist.id}`"
                                         @click.native="toggleLyrics"
-                                    >{{ artist.name }}
+                                        >{{ artist.name }}
                                     </router-link>
                                     <span v-else>
                                         {{ artist.name }}
@@ -84,7 +79,7 @@
                                             :to="`/album/${album.id}`"
                                             :title="album.name"
                                             @click.native="toggleLyrics"
-                                        >{{ album.name }}
+                                            >{{ album.name }}
                                         </router-link>
                                     </span>
                                 </div>
@@ -104,7 +99,9 @@
                                             icon-class="volume-mute"
                                         />
                                         <svg-icon
-                                            v-show="volume <= 0.5 && volume !== 0"
+                                            v-show="
+                                                volume <= 0.5 && volume !== 0
+                                            "
                                             icon-class="volume-half"
                                         />
                                     </button-icon>
@@ -124,11 +121,17 @@
                                 <div class="buttons">
                                     <button-icon
                                         :title="$t('player.like')"
-                                        @click.native="likeATrack(player.currentTrack.id)"
+                                        @click.native="
+                                            likeATrack(player.currentTrack.id)
+                                        "
                                     >
-                                        <svg-icon :icon-class="
-                        player.isCurrentTrackLiked ? 'heart-solid' : 'heart'
-                      " />
+                                        <svg-icon
+                                            :icon-class="
+                                                player.isCurrentTrackLiked
+                                                    ? 'heart-solid'
+                                                    : 'heart'
+                                            "
+                                        />
                                     </button-icon>
                                     <button-icon
                                         :title="$t('contextMenu.addToPlaylist')"
@@ -143,7 +146,9 @@
                             </div>
                         </div>
                         <div class="progress-bar">
-                            <span>{{ formatTrackTime(player.progress) || '0:00' }}</span>
+                            <span>{{
+                                formatTrackTime(player.progress) || "0:00"
+                            }}</span>
                             <div class="slider">
                                 <vue-slider
                                     v-model="player.progress"
@@ -159,16 +164,18 @@
                                     :silent="true"
                                 ></vue-slider>
                             </div>
-                            <span>{{ formatTrackTime(player.currentTrackDuration) }}</span>
+                            <span>{{
+                                formatTrackTime(player.currentTrackDuration)
+                            }}</span>
                         </div>
                         <div class="media-controls">
                             <button-icon
                                 v-show="!player.isPersonalFM"
                                 :title="
-                  player.repeatMode === 'one'
-                    ? $t('player.repeatTrack')
-                    : $t('player.repeat')
-                "
+                                    player.repeatMode === 'one'
+                                        ? $t('player.repeatTrack')
+                                        : $t('player.repeat')
+                                "
                                 :class="{ active: player.repeatMode !== 'off' }"
                                 @click.native="switchRepeatMode"
                             >
@@ -185,10 +192,18 @@
                                 <fv-button
                                     v-show="!player.isPersonalFM"
                                     theme="dark"
-                                    :background="theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                                    :background="
+                                        theme === 'dark'
+                                            ? 'rgba(35, 35, 35, 0.3)'
+                                            : 'rgba(255, 255, 255, 0.3)'
+                                    "
                                     :border-radius="50"
                                     :title="$t('player.previous')"
-                                    style="width: 30px; height: 30px; margin: 10px;"
+                                    style="
+                                        width: 30px;
+                                        height: 30px;
+                                        margin: 10px;
+                                    "
                                     @click.native="playPrevTrack"
                                 >
                                     <fv-AnimatedIcon
@@ -207,26 +222,48 @@
                                 </button-icon>
                                 <fv-button
                                     id="play"
-                                    :title="$t(player.playing ? 'player.pause' : 'player.play')"
+                                    :title="
+                                        $t(
+                                            player.playing
+                                                ? 'player.pause'
+                                                : 'player.play'
+                                        )
+                                    "
                                     theme="dark"
-                                    :background="theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                                    :background="
+                                        theme === 'dark'
+                                            ? 'rgba(35, 35, 35, 0.3)'
+                                            : 'rgba(255, 255, 255, 0.3)'
+                                    "
                                     :border-radius="50"
-                                    style="width: 48px; height: 48px;"
+                                    style="width: 48px; height: 48px"
                                     @click="playOrPause"
                                 >
                                     <fv-AnimatedIcon
                                         fontSize="16"
-                                        :icon="player.playing ? 'PauseBold' : 'PlaySolid'"
+                                        :icon="
+                                            player.playing
+                                                ? 'PauseBold'
+                                                : 'PlaySolid'
+                                        "
                                         :hideContent="true"
                                     >
                                     </fv-AnimatedIcon>
                                 </fv-button>
                                 <fv-button
                                     theme="dark"
-                                    :background="theme === 'dark' ? 'rgba(35, 35, 35, 0.3)' : 'rgba(255, 255, 255, 0.3)'"
+                                    :background="
+                                        theme === 'dark'
+                                            ? 'rgba(35, 35, 35, 0.3)'
+                                            : 'rgba(255, 255, 255, 0.3)'
+                                    "
                                     :border-radius="50"
                                     :title="$t('player.next')"
-                                    style="width: 30px; height: 30px; margin: 10px;"
+                                    style="
+                                        width: 30px;
+                                        height: 30px;
+                                        margin: 10px;
+                                    "
                                     @click.native="playNextTrack"
                                 >
                                     <fv-AnimatedIcon
@@ -257,40 +294,38 @@
                         class="lyrics-container"
                         :style="lyricFontSize"
                     >
-                        <div
-                            id="line-1"
-                            class="line"
-                        ></div>
+                        <div id="line-1" class="line"></div>
                         <div
                             v-for="(line, index) in lyricWithTranslation"
                             :id="`line${index}`"
                             :key="index"
                             class="line"
                             :class="{
-                highlight: highlightLyricIndex === index,
-              }"
+                                highlight: highlightLyricIndex === index,
+                            }"
                             @click="clickLyricLine(line.time)"
                             @dblclick="clickLyricLine(line.time, true)"
                         >
                             <div class="content">
-                                <span v-if="line.contents[0]">{{ line.contents[0] }}</span>
+                                <span v-if="line.contents[0]">{{
+                                    line.contents[0]
+                                }}</span>
                                 <br />
                                 <span
                                     v-if="
-                    line.contents[1] &&
-                    $store.state.settings.showLyricsTranslation
-                  "
+                                        line.contents[1] &&
+                                        $store.state.settings
+                                            .showLyricsTranslation
+                                    "
                                     class="translation"
-                                >{{ line.contents[1] }}</span>
+                                    >{{ line.contents[1] }}</span
+                                >
                             </div>
                         </div>
                     </div>
                 </transition>
             </div>
-            <div
-                class="close-button"
-                @click="toggleLyrics"
-            >
+            <div class="close-button" @click="toggleLyrics">
                 <button>
                     <svg-icon icon-class="arrow-down" />
                 </button>
